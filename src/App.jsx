@@ -42,6 +42,10 @@ function App() {
   )
   const [currentPlayer, setCurrentPlayer] = React.useState("O")
 
+  const [xWinCount, setXWinCount] = React.useState(0)
+  const [oWinCount, setOWinCount] = React.useState(0)
+  const [tieCount, setTieCount] = React.useState(0)
+
   /*---------------------------*/
   /*     Functions             */
   /*---------------------------*/
@@ -79,17 +83,38 @@ function App() {
     }
   }
 
+  function updateStatus(winner){
+    if(winner == "X"){
+      setXWinCount(prevCount => prevCount+1)
+    }
+    else if(winner == "O"){
+      setOWinCount(prevCount => prevCount+1)
+    }
+    else{
+      setTieCount(prevCount => prevCount+1)
+    }
+  }
+
   /*---------------------------*/
   /*     Effects               */
   /*---------------------------*/
 
   // Check if someone has won
   React.useEffect(()=>{
+    let hasWon = false
     WINNING_COMBINATIONS.forEach(combination=>{
       if(areEqual(board[combination[0]], board[combination[1]], board[combination[2]])){
+        hasWon = true
+        updateStatus(board[combination[0]])
         handleRestart()
       }
     })
+
+    if(board.find(el => el === "") === undefined && !hasWon){
+      updateStatus("")
+      handleRestart()
+    }
+
   }, [board])
 
   /*---------------------------*/
@@ -132,7 +157,11 @@ function App() {
         {/*----------------*/}
         {/* TicTacToe Board*/}
         {/*----------------*/}
-        <Board board={board} handleBoxClick = {handleBoxClick}/>
+        <Board
+          board={board}
+          handleBoxClick = {handleBoxClick}
+          currentPlayer = {currentPlayer}
+        />
 
         {/*---------------*/}
         {/* Bottom Section*/}
@@ -140,15 +169,15 @@ function App() {
         <section className="bottom">
           <div id="x-wins" className="bottom-tile">
             <p className="win-label">X (YOU)</p>
-            <p className="score">0</p>
+            <p className="score">{xWinCount}</p>
           </div>
           <div id="ties" className="bottom-tile">
             <p className="win-label">TIES</p>
-            <p className="score">0</p>
+            <p className="score">{tieCount}</p>
           </div>
           <div id="o-wins" className="bottom-tile">
             <p className="win-label">O (CPU)</p>
-            <p className="score">0</p>
+            <p className="score">{oWinCount}</p>
           </div>
         </section>
 
