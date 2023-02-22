@@ -127,11 +127,12 @@ img{
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 350ms ease;
 }
 
 .box--hover-img{
   opacity: 0;
-  transition: all 250ms ease;
+  transition: all 450ms ease;
 }
 
 .box:hover .box--hover-img{

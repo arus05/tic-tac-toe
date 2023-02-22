@@ -7,7 +7,11 @@ import hoverOIcon from "./../assets/icon-o-outline.svg"
 
 export default function Box(props){
     return(
-        <div className="box" onClick={()=>props.handleBoxClick(props.index)}>
+        <div
+            className="box"
+            id={`box-${props.index}`}
+            onClick={()=>props.handleBoxClick(props.index)}
+        >
             {
                 (props.player === "X" || props.player === "O") &&
                 <img

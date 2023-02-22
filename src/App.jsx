@@ -8,6 +8,10 @@ import oIcon from "./assets/icon-o.svg"
 import greyXIcon from "./assets/icon-x-grey.svg"
 import greyOIcon from "./assets/icon-o-grey.svg"
 import restartIcon from "./assets/icon-restart.svg"
+import darkXIcon from "./assets/icon-x-dark.svg"
+import darkOIcon from "./assets/icon-o-dark.svg"
+
+
 
 /*-------------------------------------------------------*/
 
@@ -95,6 +99,21 @@ function App() {
     }
   }
 
+  function highlightWinner(winner, combination){
+    combination.forEach(index => {
+
+      const boxEl = document.querySelector(`#box-${index}`)
+      const iconImgEl = document.querySelector(`#box-${index} > img`)
+      boxEl.style.backgroundColor = winner === "X" ? 
+                                      "rgb(49, 195, 189)":
+                                      "#F2B137"
+      iconImgEl.src = winner === "X" ? 
+                      darkXIcon:
+                      darkOIcon
+
+    })
+  }
+
   /*---------------------------*/
   /*     Effects               */
   /*---------------------------*/
@@ -106,7 +125,7 @@ function App() {
       if(areEqual(board[combination[0]], board[combination[1]], board[combination[2]])){
         hasWon = true
         updateStatus(board[combination[0]])
-        handleRestart()
+        highlightWinner(board[combination[0]], combination)
       }
     })
 
