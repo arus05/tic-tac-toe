@@ -17,12 +17,31 @@ import restartIcon from "./assets/icon-restart.svg"
 function App() {
 
   /*---------------------------*/
+  /*     Variables                */
+  /*---------------------------*/
+
+  const emptyBoard = ["", "", "", "", "", "", "", "", ""]
+
+  const WINNING_COMBINATIONS = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ]
+
+  /*---------------------------*/
   /*     States                */
   /*---------------------------*/
+
   const [board, setBoard] = React.useState(
     ["", "", "", "", "", "", "", "", ""]
   )
   const [currentPlayer, setCurrentPlayer] = React.useState("O")
+
   /*---------------------------*/
   /*     Functions             */
   /*---------------------------*/
@@ -46,23 +65,32 @@ function App() {
 
     }
   }
+  
   function handleRestart(){
-    setBoard(["", "", "", "", "", "", "", "", ""])
+    setBoard(emptyBoard)
     console.log("change board")
     setCurrentPlayer("O")
     console.log("change player")
   }
 
+  function areEqual(a, b, c){
+    if(a === b && b === c && c !== ""){
+      return true
+    }
+  }
+
   /*---------------------------*/
   /*     Effects               */
   /*---------------------------*/
-  // React.useEffect(()=>{
-  //   setCurrentPlayer(prevPlayer => (
-  //     prevPlayer === "X"?
-  //     "O":
-  //     "X"
-  //   ))
-  // }, [board])
+
+  // Check if someone has won
+  React.useEffect(()=>{
+    WINNING_COMBINATIONS.forEach(combination=>{
+      if(areEqual(board[combination[0]], board[combination[1]], board[combination[2]])){
+        handleRestart()
+      }
+    })
+  }, [board])
 
   /*---------------------------*/
   /*     Return                */
