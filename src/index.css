@@ -1,69 +1,163 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+/*--------------------------*/
+/*  Reset                   */
+/*--------------------------*/
+*{
+  box-sizing: border-box;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+body{
+  font-family: "Inter", sans-serif;
+  background:#1A2A33;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+p,
+h1,
+h2,
+h3,
+h4,
+h5{
+  margin: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+button,
+textarea,
+a,
+input{
   font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+img{
+  display: block;
+}
+
+/*--------------------------*/
+/*  Utility Classes         */
+/*--------------------------*/
+.main-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+
+/*--------------------------*/
+/*  Component Styles        */
+/*--------------------------*/
+
+
+/* TOP */
+.top{
+  display: flex;
+  width: 410px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+/* XO logo */
+.top-logo{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 4.3rem;
+}
+
+.top-logo-img{
+  width: 2rem;
+}
+
+/* current player display */
+.current-player{
+  padding: 0.7rem 1.8rem;
+  width: 8rem;
+  display: flex;
+  box-shadow: black 2px 5px 3px;
+  align-items: center;
+  background-color: #1F3641;
+  border-radius: 8px;
+  margin-right: 6.1rem;
+}
+
+.current-player-img{
+  width: 1.5rem;
+  margin-right: 10px;
+}
+
+.current-player-text{
+  color: #A8BFC9;
+  font-weight: 800;
+}
+
+/* restart button */
+.restart-btn{
+  background-color: #A8BFC9;
+  padding: 0.8rem;
+  border-radius: 10px;
+  box-shadow: black 2px 5px 3px;
+}
+
+
+/* Box component*/
+.box{
+  background-color: #1F3641;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: black 2px 5px 3px;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Board component*/
+.board{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.board--row{
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Bottom */
+.bottom{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+}
+
+.bottom-tile{
+  width: 8rem;
+  background: white;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 0.9rem;
+}
+
+.score{
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+#x-wins{
+  background-color: #31C3BD;
+}
+
+#ties{
+  background-color: #A8BFC9;
+}
+
+#o-wins{
+  background-color: #F2B137;
 }
