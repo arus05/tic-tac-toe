@@ -9,6 +9,7 @@ export default function Board(props){
                     player={element}
                     handleBoxClick = {props.handleBoxClick}
                     index = {index}
+                    key = {index}
                 />
     })
     const rowEl2 = board.slice(3,6).map((element, index)=>{
@@ -16,6 +17,7 @@ export default function Board(props){
                     player={element}
                     handleBoxClick = {props.handleBoxClick}
                     index = {index+3}
+                    key = {index+3}
                 />
     })
     const rowEl3 = board.slice(6,9).map((element, index)=>{
@@ -23,11 +25,12 @@ export default function Board(props){
                     player={element}
                     handleBoxClick = {props.handleBoxClick}
                     index = {index+6}
+                    key = {index+6}
                 />
     })
 
     return(
-        <section class="board">
+        <section className="board">
             <div className="board--row">
                 {rowEl1}
             </div>

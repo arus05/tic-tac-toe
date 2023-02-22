@@ -3,6 +3,9 @@
 /*--------------------------*/
 *{
   box-sizing: border-box;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 body{
@@ -100,6 +103,18 @@ img{
   box-shadow: black 2px 5px 3px;
 }
 
+.restart-btn > img{
+  transition: all 200ms ease;
+}
+
+.restart-btn:hover{
+  background-color: #DBE8ED;
+  cursor: pointer;
+}
+
+.restart-btn:active > img{
+  transform: rotateZ(40deg);
+}
 
 /* Box component*/
 .box{
