@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import Board from "./components/Board.jsx"
 import Box from "./components/Box.jsx"
+import Menu from "./components/Menu.jsx"
 import xIcon from "./assets/icon-x.svg"
 import oIcon from "./assets/icon-o.svg"
 import greyXIcon from "./assets/icon-x-grey.svg"
@@ -10,7 +11,6 @@ import greyOIcon from "./assets/icon-o-grey.svg"
 import restartIcon from "./assets/icon-restart.svg"
 import darkXIcon from "./assets/icon-x-dark.svg"
 import darkOIcon from "./assets/icon-o-dark.svg"
-
 
 
 /*-------------------------------------------------------*/
@@ -45,10 +45,12 @@ function App() {
     ["", "", "", "", "", "", "", "", ""]
   )
   const [currentPlayer, setCurrentPlayer] = React.useState("O")
-
   const [xWinCount, setXWinCount] = React.useState(0)
   const [oWinCount, setOWinCount] = React.useState(0)
   const [tieCount, setTieCount] = React.useState(0)
+  const [gameOn, setGameOn] = React.useState(false)
+  const [playerOne, setPlayerOne] = React.useState("X")
+  const [playerTwo, setPlayerTwo] = React.useState("O")
 
   /*---------------------------*/
   /*     Functions             */
@@ -114,6 +116,16 @@ function App() {
     })
   }
 
+  function togglePlayer(toggled){
+    if (toggled !== playerOne){
+      setPlayerOne(prevPlayerOne => (
+        prevPlayerOne === "X"?
+        "O":
+        "X"
+      ))
+    }
+  }
+
   /*---------------------------*/
   /*     Effects               */
   /*---------------------------*/
@@ -144,7 +156,8 @@ function App() {
       {/*-----------------------------*/}
       {/* Container for the main page */}
       {/*-----------------------------*/}
-      <div className="main-container">
+      { gameOn &&
+        (<div className="main-container">
 
         {/* top section */}
         <section className="top">
@@ -200,7 +213,13 @@ function App() {
           </div>
         </section>
 
-      </div>
+      </div>)
+      }
+      
+      {
+        !gameOn && <Menu playerOne={playerOne} togglePlayer={togglePlayer}/>
+      }
+
     </main>
   )
     

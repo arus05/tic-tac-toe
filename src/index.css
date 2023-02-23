@@ -12,6 +12,7 @@ body{
   font-family: "Inter", sans-serif;
   background:#1A2A33;
   margin: 0;
+  text-align: center;
 }
 
 p,
@@ -27,17 +28,30 @@ button,
 textarea,
 a,
 input{
-  font-family: inherit;
+  font: inherit;
 }
 
 img{
   display: block;
 }
 
+button{
+  background: transparent;
+  border-radius: 1rem;
+  color: inherit;
+  border: none;
+  display: block;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
 /*--------------------------*/
 /*  Utility Classes         */
 /*--------------------------*/
-.main-container{
+.main-container
+{
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -47,11 +61,14 @@ img{
   overflow: hidden;
 }
 
-
 /*--------------------------*/
 /*  Component Styles        */
 /*--------------------------*/
 
+
+/*--------------------------*/
+/*  Main Page               */
+/*--------------------------*/
 
 /* TOP */
 .top{
@@ -186,4 +203,120 @@ img{
 
 #o-wins{
   background-color: #F2B137;
+}
+
+/*--------------------------*/
+/*  Menu Page               */
+/*--------------------------*/
+.menu{
+  width: 550px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-inline: auto;
+  color: white;
+}
+
+.menu--logo{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  gap: 0.5rem;
+}
+
+.menu--logo-img{
+  width: 2rem;
+}
+
+.menu--logo-img > img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu--choose-player{
+  padding: 1rem;
+  margin-inline: auto;
+  width: 80%;
+  background-color: #1F3641;
+  border-radius: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 0 rgba(0,0,0,0.4);
+}
+
+.menu--choose-player-title{
+  color: #A8BFC9;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.menu--choose-player-toggle{
+  padding: 0.5rem;
+  display: flex;
+  background: #1A2A33;
+  border-radius: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.menu--choose-player-btn{
+  width: 50%;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  transition: all 300ms ease;
+}
+
+.menu--choose-player-icon-img{
+  width: 2rem;
+  height: 2rem;
+}
+
+.menu--choose-player-icon-img > img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu--reminder{
+  color: #A8BFC9;
+  opacity: 0.5;
+  font-size: 0.9rem;
+}
+
+.menu--btn{
+  width: 80%;
+  background: white;
+  color: #1A2A33;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 1rem 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.menu--cpu-btn{
+  background: #F2B137;
+  box-shadow: 0px 8px 0px rgb(204 139 19);
+  transition: all 300ms ease;
+}
+
+.menu--cpu-btn:hover{
+  background: #FFC860;
+}
+
+.menu--player-btn{
+  background: #31C3BD;
+  box-shadow: 0px 8px 0px rgb(17 140 135);
+  transition: all 300ms ease;
+}
+
+.menu--player-btn:hover{
+  background: #65E9E4
 }
