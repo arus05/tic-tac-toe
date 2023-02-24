@@ -50,7 +50,7 @@ function App() {
   const [tieCount, setTieCount] = React.useState(0)
   const [playerOne, setPlayerOne] = React.useState("X")
   const [playerTwo, setPlayerTwo] = React.useState("O")
-  const [gameOn, setGameOn] = React.useState(false)
+  const [gameOn, setGameOn] = React.useState(true)
   const [xHasWon, setXHasWon] = React.useState(false)
   const [oHasWon, setOHasWon] = React.useState(false)
   const [isTied, setIsTied] = React.useState(false)

@@ -45,16 +45,21 @@ export default function Board(props){
     })
 
     return(
-        <section className="board">
-            <div className="board--row">
-                {rowEl1}
-            </div>
-            <div className="board--row">
-                {rowEl2}
-            </div>
-            <div className="board--row">
-                {rowEl3}
-            </div>
+        // <section className="board">
+        //     <div className="board--row">
+        //         {rowEl1}
+        //     </div>
+        //     <div className="board--row">
+        //         {rowEl2}
+        //     </div>
+        //     <div className="board--row">
+        //         {rowEl3}
+        //     </div>
+        // </section>
+        <section className="grid">
+            {rowEl1}
+            {rowEl2}
+            {rowEl3}
         </section>
     )
 }
