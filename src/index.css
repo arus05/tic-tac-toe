@@ -52,7 +52,7 @@ button:hover{
 /*--------------------------*/
 .main-container
 {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,6 +97,7 @@ button:hover{
   display: flex;
   box-shadow: black 2px 5px 3px;
   align-items: center;
+  justify-content: center;
   background-color: #1F3641;
   border-radius: 8px;
   margin-right: 6.1rem;
@@ -210,7 +211,7 @@ button:hover{
 /*--------------------------*/
 .menu{
   width: 550px;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -319,4 +320,10 @@ button:hover{
 
 .menu--player-btn:hover{
   background: #65E9E4
+}
+
+@media all and (max-width: 600px){
+  .menu{
+    width: 400px;
+  }
 }

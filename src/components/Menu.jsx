@@ -137,11 +137,16 @@ export default function Menu(props){
 
       </div>
 
-      <button className="menu--btn menu--cpu-btn">
-        NEW GAME (VS CPU)
+      <button
+        className="menu--btn menu--cpu-btn"
+      >
+        NEW GAME (VS CPU) (NOT AVAILABLE YET)
       </button>
 
-      <button className="menu--btn menu--player-btn">
+      <button
+        className="menu--btn menu--player-btn"
+        onClick={props.startGame}
+      >
         NEW GAME (VS PLAYER)
       </button>
 

@@ -48,9 +48,13 @@ function App() {
   const [xWinCount, setXWinCount] = React.useState(0)
   const [oWinCount, setOWinCount] = React.useState(0)
   const [tieCount, setTieCount] = React.useState(0)
-  const [gameOn, setGameOn] = React.useState(false)
   const [playerOne, setPlayerOne] = React.useState("X")
   const [playerTwo, setPlayerTwo] = React.useState("O")
+  const [gameOn, setGameOn] = React.useState(false)
+  const [xHasWon, setXHasWon] = React.useState(false)
+  const [oHasWon, setOHasWon] = React.useState(false)
+  const [isTied, setIsTied] = React.useState(false)
+  const [winnerCombination, setWinnerCombination] = React.useState([])
 
   /*---------------------------*/
   /*     Functions             */
@@ -78,9 +82,11 @@ function App() {
   
   function handleRestart(){
     setBoard(emptyBoard)
-    console.log("change board")
     setCurrentPlayer("O")
-    console.log("change player")
+    setXHasWon(false)
+    setOHasWon(false)
+    setIsTied(false)
+    setWinnerCombination([])
   }
 
   function areEqual(a, b, c){
@@ -101,21 +107,6 @@ function App() {
     }
   }
 
-  function highlightWinner(winner, combination){
-    combination.forEach(index => {
-
-      const boxEl = document.querySelector(`#box-${index}`)
-      const iconImgEl = document.querySelector(`#box-${index} > img`)
-      boxEl.style.backgroundColor = winner === "X" ? 
-                                      "rgb(49, 195, 189)":
-                                      "#F2B137"
-      iconImgEl.src = winner === "X" ? 
-                      darkXIcon:
-                      darkOIcon
-
-    })
-  }
-
   function togglePlayer(toggled){
     if (toggled !== playerOne){
       setPlayerOne(prevPlayerOne => (
@@ -126,24 +117,38 @@ function App() {
     }
   }
 
+  function startGame(){
+    setGameOn(true)
+  }
+
+  function updateWinner(winner){
+    if(winner === "X"){
+      setXHasWon(true)
+    }
+    else{
+      setOHasWon(true)
+    }
+  }
+
   /*---------------------------*/
   /*     Effects               */
   /*---------------------------*/
 
-  // Check if someone has won
+  // Check if someone has won or tied
   React.useEffect(()=>{
     let hasWon = false
     WINNING_COMBINATIONS.forEach(combination=>{
       if(areEqual(board[combination[0]], board[combination[1]], board[combination[2]])){
         hasWon = true
+        setWinnerCombination(combination)
         updateStatus(board[combination[0]])
-        highlightWinner(board[combination[0]], combination)
+        updateWinner(board[combination[0]])
       }
     })
 
-    if(board.find(el => el === "") === undefined && !hasWon){
-      updateStatus("")
-      handleRestart()
+    if(board.find(el => el === "") === undefined && !hasWon){ //tie
+      updateStatus("tie")
+      setIsTied(true)
     }
 
   }, [board])
@@ -193,6 +198,10 @@ function App() {
           board={board}
           handleBoxClick = {handleBoxClick}
           currentPlayer = {currentPlayer}
+          xHasWon = {xHasWon}
+          oHasWon = {oHasWon}
+          winnerCombination = {winnerCombination}
+          isTied = {isTied}
         />
 
         {/*---------------*/}
@@ -217,7 +226,12 @@ function App() {
       }
       
       {
-        !gameOn && <Menu playerOne={playerOne} togglePlayer={togglePlayer}/>
+        !gameOn &&
+        <Menu
+          playerOne={playerOne}
+          togglePlayer={togglePlayer}
+          startGame = {startGame}
+        />
       }
 
     </main>

@@ -11,6 +11,10 @@ export default function Board(props){
                     index = {index}
                     key = {index}
                     currentPlayer = {props.currentPlayer}
+                    xHasWon = {props.xHasWon}
+                    oHasWon = {props.oHasWon}
+                    winnerCombination = {props.winnerCombination}
+                    isTied = {props.isTied}
                 />
     })
     const rowEl2 = board.slice(3,6).map((element, index)=>{
@@ -20,6 +24,10 @@ export default function Board(props){
                     index = {index+3}
                     key = {index+3}
                     currentPlayer = {props.currentPlayer}
+                    xHasWon = {props.xHasWon}
+                    oHasWon = {props.oHasWon}
+                    winnerCombination = {props.winnerCombination}
+                    isTied = {props.isTied}
                 />
     })
     const rowEl3 = board.slice(6,9).map((element, index)=>{
@@ -29,6 +37,10 @@ export default function Board(props){
                     index = {index+6}
                     key = {index+6}
                     currentPlayer = {props.currentPlayer}
+                    xHasWon = {props.xHasWon}
+                    oHasWon = {props.oHasWon}
+                    winnerCombination = {props.winnerCombination}
+                    isTied = {props.isTied}
                 />
     })
 
