@@ -56,9 +56,9 @@ export default function Menu(props){
   /*---------------------------*/
 
   return(
-    <div className="menu">
+    <div className="menu fade-in">
   
-      <div className="menu--logo">
+      <div className="menu--logo tilt-in-fwd-tr">
         <div className="menu--logo-img">
           <img src={xIcon} alt="" />
         </div>
@@ -67,7 +67,7 @@ export default function Menu(props){
         </div>
       </div>
 
-      <div className="menu--choose-player">
+      <div className="menu--choose-player tilt-in-fwd-tr">
 
         <p className="menu--choose-player-title">
           PICK PLAYER 1'S MARK
@@ -138,13 +138,13 @@ export default function Menu(props){
       </div>
 
       <button
-        className="menu--btn menu--cpu-btn"
+        className="menu--btn menu--cpu-btn slide-in-left"
       >
         NEW GAME (VS CPU) (NOT AVAILABLE YET)
       </button>
 
       <button
-        className="menu--btn menu--player-btn"
+        className="menu--btn menu--player-btn slide-in-right"
         onClick={props.startGame}
       >
         NEW GAME (VS PLAYER)

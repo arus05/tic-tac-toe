@@ -44,13 +44,13 @@ function App() {
   const [board, setBoard] = React.useState(
     ["", "", "", "", "", "", "", "", ""]
   )
-  const [currentPlayer, setCurrentPlayer] = React.useState("O")
+  const [currentPlayer, setCurrentPlayer] = React.useState("X")
   const [xWinCount, setXWinCount] = React.useState(0)
   const [oWinCount, setOWinCount] = React.useState(0)
   const [tieCount, setTieCount] = React.useState(0)
   const [playerOne, setPlayerOne] = React.useState("X")
   const [playerTwo, setPlayerTwo] = React.useState("O")
-  const [gameOn, setGameOn] = React.useState(true)
+  const [gameOn, setGameOn] = React.useState(false)
   const [xHasWon, setXHasWon] = React.useState(false)
   const [oHasWon, setOHasWon] = React.useState(false)
   const [isTied, setIsTied] = React.useState(false)
@@ -82,7 +82,7 @@ function App() {
   
   function handleRestart(){
     setBoard(emptyBoard)
-    setCurrentPlayer("O")
+    setCurrentPlayer("X")
     setXHasWon(false)
     setOHasWon(false)
     setIsTied(false)
