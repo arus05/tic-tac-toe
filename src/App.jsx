@@ -4,6 +4,9 @@ import './App.css'
 import Board from "./components/Board.jsx"
 import Box from "./components/Box.jsx"
 import Menu from "./components/Menu.jsx"
+import Notification from "./components/Notification.jsx"
+import Conf from './components/Conf.jsx'
+
 import xIcon from "./assets/icon-x.svg"
 import oIcon from "./assets/icon-o.svg"
 import greyXIcon from "./assets/icon-x-grey.svg"
@@ -118,7 +121,13 @@ function App() {
   }
 
   function startGame(){
+    handleRestart()
     setGameOn(true)
+  }
+
+  function quitGame(){
+    handleRestart()
+    setGameOn(false)
   }
 
   function updateWinner(winner){
@@ -126,6 +135,7 @@ function App() {
       setXHasWon(true)
     }
     else{
+      handleRestart()
       setOHasWon(true)
     }
   }
@@ -158,6 +168,16 @@ function App() {
   /*---------------------------*/
   return(
     <main>
+
+      {/*-----------------------------*/}
+      {/* Confetti                    */}
+      {/*-----------------------------*/}
+      {
+        (xHasWon || oHasWon) &&
+        <Conf />
+      }
+
+
       {/*-----------------------------*/}
       {/* Container for the main page */}
       {/*-----------------------------*/}
@@ -231,6 +251,16 @@ function App() {
           playerOne={playerOne}
           togglePlayer={togglePlayer}
           startGame = {startGame}
+        />
+      }
+      {
+        (xHasWon || oHasWon || isTied) &&
+        <Notification
+          xHasWon = {xHasWon}
+          oHasWon = {oHasWon}
+          isTied = {isTied}
+          quitGame = {quitGame}
+          handleRestart = {handleRestart}
         />
       }
 
