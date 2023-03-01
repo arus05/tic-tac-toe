@@ -56,7 +56,9 @@ export default function Menu(props){
   /*---------------------------*/
 
   return(
-    <div className="menu fade-in">
+    <div
+      className= "menu animate__animated animate__fadeIn"
+    >
   
       <div className="menu--logo tilt-in-fwd-tr">
         <div className="menu--logo-img">

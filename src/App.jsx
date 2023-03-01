@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import 'animate.css'
+
 import Board from "./components/Board.jsx"
 import Box from "./components/Box.jsx"
 import Menu from "./components/Menu.jsx"
@@ -58,6 +60,7 @@ function App() {
   const [oHasWon, setOHasWon] = React.useState(false)
   const [isTied, setIsTied] = React.useState(false)
   const [winnerCombination, setWinnerCombination] = React.useState([])
+  const [gameMode, setGameMode] = React.useState(1)
 
   /*---------------------------*/
   /*     Functions             */
@@ -110,6 +113,12 @@ function App() {
     }
   }
 
+  function resetStatus(){
+    setXWinCount(0)
+    setOWinCount(0)
+    setTieCount(0)
+  }
+
   function togglePlayer(toggled){
     if (toggled !== playerOne){
       setPlayerOne(prevPlayerOne => (
@@ -122,12 +131,38 @@ function App() {
 
   function startGame(){
     handleRestart()
+    resetStatus()
     setGameOn(true)
   }
 
+  function startNewRound(){
+    const quitBtn = document.querySelector(".notification-card")
+    quitBtn.classList.remove("animate__zoomIn")
+    quitBtn.classList.remove("animate__delay-1s")
+    quitBtn.classList.add("animate__zoomOut")
+
+    setTimeout(handleRestart, 500)
+  }
+
   function quitGame(){
-    handleRestart()
-    setGameOn(false)
+    // update notification animation
+    const notification = document.querySelector(".notification-card")
+    notification.classList.remove("animate__zoomIn")
+    notification.classList.remove("animate__delay-1s")
+    notification.classList.add("animate__zoomOut")
+
+    //update main-container animation
+    const mainContainer = document.querySelector(".main-container")
+    mainContainer.classList.remove("animate__zoomIn")
+    mainContainer.classList.add("animate__zoomOut")
+
+    setTimeout(()=>{
+      handleRestart()
+      resetStatus()
+      setGameOn(false)
+    }, 500)
+
+
   }
 
   function updateWinner(winner){
@@ -135,7 +170,6 @@ function App() {
       setXHasWon(true)
     }
     else{
-      handleRestart()
       setOHasWon(true)
     }
   }
@@ -157,8 +191,10 @@ function App() {
     })
 
     if(board.find(el => el === "") === undefined && !hasWon){ //tie
-      updateStatus("tie")
-      setIsTied(true)
+      setTimeout(()=>{
+        updateStatus("tie")
+        setIsTied(true)
+      }, 300)
     }
 
   }, [board])
@@ -170,19 +206,19 @@ function App() {
     <main>
 
       {/*-----------------------------*/}
-      {/* Confetti                    */}
-      {/*-----------------------------*/}
-      {
-        (xHasWon || oHasWon) &&
-        <Conf />
-      }
-
-
-      {/*-----------------------------*/}
       {/* Container for the main page */}
       {/*-----------------------------*/}
       { gameOn &&
-        (<div className="main-container">
+        (
+        <div className="main-container animate__animated animate__zoomIn">
+
+        {/*-----------------------------*/}
+        {/* Confetti                    */}
+        {/*-----------------------------*/}
+        {
+          (xHasWon || oHasWon) &&
+          <Conf />
+        }
 
         {/* top section */}
         <section className="top">
@@ -229,18 +265,39 @@ function App() {
         {/*---------------*/}
         <section className="bottom">
           <div id="x-wins" className="bottom-tile">
-            <p className="win-label">X (YOU)</p>
+            <p className="win-label">
+              {`X (${playerOne === "X" ? "P1" : "P2"})`}
+            </p>
             <p className="score">{xWinCount}</p>
           </div>
           <div id="ties" className="bottom-tile">
-            <p className="win-label">TIES</p>
+            <p className="win-label">
+              TIES
+            </p>
             <p className="score">{tieCount}</p>
           </div>
           <div id="o-wins" className="bottom-tile">
-            <p className="win-label">O (CPU)</p>
+            <p className="win-label">
+            {`O (${playerOne === "O" ? "P1" : "P2"})`}
+            </p>
             <p className="score">{oWinCount}</p>
           </div>
         </section>
+
+        {/*---------------*/}
+        {/* Notification  */}
+        {/*---------------*/}
+
+        {
+          (xHasWon || oHasWon || isTied) &&
+          <Notification
+            xHasWon = {xHasWon}
+            oHasWon = {oHasWon}
+            isTied = {isTied}
+            quitGame = {quitGame}
+            startNewRound = {startNewRound}
+          />
+        }
 
       </div>)
       }
@@ -251,16 +308,7 @@ function App() {
           playerOne={playerOne}
           togglePlayer={togglePlayer}
           startGame = {startGame}
-        />
-      }
-      {
-        (xHasWon || oHasWon || isTied) &&
-        <Notification
-          xHasWon = {xHasWon}
-          oHasWon = {oHasWon}
-          isTied = {isTied}
-          quitGame = {quitGame}
-          handleRestart = {handleRestart}
+          gameOn = {gameOn}
         />
       }
 

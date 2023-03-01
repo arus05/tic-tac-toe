@@ -38,16 +38,13 @@ export default function Box(props){
     function finalBgStyle(){
         if(props.winnerCombination.includes(props.index)){ //problem
             if(props.xHasWon){
-                console.log("1")
                 return xWinBgStyle
             }
             else{
-                console.log("2")
                 return oWinBgStyle
             }
         }
         else{
-            console.log("3")
             return defaultBgStyle
         }
     }
@@ -79,6 +76,7 @@ export default function Box(props){
                         oIcon)
                     }
                     alt="X or O"
+                    className = "animate__animated animate__bounceIn"
                 />
             }
             {
