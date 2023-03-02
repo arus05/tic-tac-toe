@@ -43,6 +43,11 @@ body{
   margin: 0;
   text-align: center;
   overflow-x: hidden;
+  min-height: 100vh;
+}
+
+main{
+  overflow-x: hidden;
 }
 
 p,
@@ -71,12 +76,8 @@ button{
   color: inherit;
   border: none;
   display: block;
-}
-
-button:hover{
   cursor: pointer;
 }
-
 
 /*--------------------------*/
 /*  Styles                  */
@@ -253,8 +254,9 @@ button:hover{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-inline: auto;
+  margin: 0px auto;
   color: white;
+  padding: 0;
 }
 
 .menu--logo{
@@ -262,7 +264,7 @@ button:hover{
   width: 100%;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2.5rem;
+  margin: 1rem 0 2.5rem 0;
   gap: 0.5rem;
 }
 
