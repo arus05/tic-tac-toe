@@ -130,9 +130,17 @@ function App() {
   }
 
   function startGame(){
-    handleRestart()
-    resetStatus()
-    setGameOn(true)
+    // change menu animation
+    const menu = document.querySelector(".menu")
+    menu.classList.remove("animate__fadeIn")
+    menu.classList.add("animate__bounceOutDown")
+
+    setTimeout(()=>{
+      handleRestart()
+      resetStatus()
+      setGameOn(true)
+    }, 600)
+
   }
 
   function startNewRound(){
