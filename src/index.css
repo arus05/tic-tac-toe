@@ -131,6 +131,12 @@ button{
 .current-player-img{
   width: 1.5rem;
   margin-right: 10px;
+  transition: opacity 200ms ease;
+}
+
+.current-player-img:hover{
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 .current-player-text{

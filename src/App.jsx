@@ -242,7 +242,7 @@ function App() {
                 greyOIcon
               }
               alt=""
-              className="current-player-img"
+              className="current-player-img animate__animated animate__bounce"
             />
             <p className="current-player-text">TURN</p>
           </div>
