@@ -26,7 +26,7 @@ import darkOIcon from "./assets/icon-o-dark.svg"
 function App() {
 
   /*---------------------------*/
-  /*     Variables                */
+  /*     Variables             */
   /*---------------------------*/
 
   const emptyBoard = ["", "", "", "", "", "", "", "", ""]
@@ -60,6 +60,7 @@ function App() {
   const [oHasWon, setOHasWon] = React.useState(false)
   const [isTied, setIsTied] = React.useState(false)
   const [winnerCombination, setWinnerCombination] = React.useState([])
+  // 0: player vs player; 1: cpu easy mode; 2: cpu medium mode; 3: cpu hard mode
   const [gameMode, setGameMode] = React.useState(1)
 
   /*---------------------------*/
@@ -126,10 +127,15 @@ function App() {
         "O":
         "X"
       ))
+      setPlayerTwo(prevPlayerTwo => (
+        prevPlayerTwo === "X"?
+        "O":
+        "X"
+      ))
     }
   }
 
-  function startGame(){
+  function startGame(mode){
     // change menu animation
     const menu = document.querySelector(".menu")
     menu.classList.remove("animate__fadeIn")
@@ -139,8 +145,8 @@ function App() {
       handleRestart()
       resetStatus()
       setGameOn(true)
+      setGameMode(mode)
     }, 600)
-
   }
 
   function startNewRound(){
@@ -148,7 +154,6 @@ function App() {
     quitBtn.classList.remove("animate__zoomIn")
     quitBtn.classList.remove("animate__delay-1s")
     quitBtn.classList.add("animate__zoomOut")
-
     setTimeout(handleRestart, 500)
   }
 
@@ -170,7 +175,6 @@ function App() {
       setGameOn(false)
     }, 500)
 
-
   }
 
   function updateWinner(winner){
@@ -182,29 +186,157 @@ function App() {
     }
   }
 
+  function getRandomMove(){
+    const emptySpots = [];
+    board.forEach((spot, index)=>{
+      if(spot === ""){
+        emptySpots.push(index)
+      }
+    })
+    
+    const randomIndex = Math.floor(Math.random()*emptySpots.length)
+    const randomSpot = emptySpots[randomIndex]
+
+    return randomSpot
+  }
+
+  function minimax(board, isMaximizing){
+    const boardState = getBoardState(board);
+
+    // Leaf Nodes
+    if(boardState === playerTwo){
+      return 1
+    }
+    else if (boardState === playerOne){
+      return -1
+    }
+    else if (boardState === "tie"){
+      return 0
+    }
+
+    //Internal Nodes
+    if(isMaximizing){
+      let bestScore = -100
+      let i;
+      for(i=0; i<board.length; i++){
+        let score
+        if(board[i] === ""){
+          board[i] = playerTwo
+          score = minimax(board, false)
+          if(score > bestScore){
+            bestScore = score
+          }
+          board[i] = ""
+        }
+      }
+      return bestScore
+    }
+    else if(!isMaximizing){
+      let worstScore = 100
+      let i;
+      for(i=0; i<board.length; i++){
+        let score
+        if(board[i] === ""){
+          board[i] = playerOne
+          score = minimax(board, true)
+          if(score < worstScore){
+            worstScore = score
+          }
+          board[i] = ""
+        }
+      }
+      return worstScore
+    }
+
+  }
+
+  function getBestMove(){
+    let testBoard = board
+    let bestScore = -100
+    let bestMove
+
+    for(let i=0; i<testBoard.length; i++){
+      let score
+      if(testBoard[i] === ""){
+        testBoard[i] = playerTwo
+        score = minimax(testBoard, false)
+        if(score > bestScore){
+          bestScore = score
+          bestMove = i
+        }
+        testBoard[i] = ""
+      }
+    }
+    console.log(bestMove)
+    return bestMove
+
+  }
+
+  function gameHasEnded(){
+    return (xHasWon || oHasWon) || isTied
+  }
+
+  function isCPUTurn(){
+    return gameMode !== 1 && currentPlayer === playerTwo
+  }
+
+  function getBoardState(board){ //returns "O", "X" or "tie"
+    // Check for win
+    let state;
+    WINNING_COMBINATIONS.forEach(combination=>{
+      if(areEqual(board[combination[0]], board[combination[1]], board[combination[2]])){
+        state = board[combination[0]]
+      }
+    })
+    if(state){
+      return state
+    }
+
+    // check for tie
+    if(board.find(el => el === "") === undefined){ //tie
+      return "tie"
+    }
+    
+    return undefined
+
+  }
+
   /*---------------------------*/
   /*     Effects               */
   /*---------------------------*/
 
-  // Check if someone has won or tied
   React.useEffect(()=>{
-    let hasWon = false
-    WINNING_COMBINATIONS.forEach(combination=>{
-      if(areEqual(board[combination[0]], board[combination[1]], board[combination[2]])){
-        hasWon = true
-        setWinnerCombination(combination)
-        updateStatus(board[combination[0]])
-        updateWinner(board[combination[0]])
+    if(gameOn){
+      // Check if someone has won or tied
+      let hasWon = false
+      WINNING_COMBINATIONS.forEach(combination=>{
+        if(areEqual(board[combination[0]], board[combination[1]], board[combination[2]])){
+          hasWon = true
+          setWinnerCombination(combination)
+          updateStatus(board[combination[0]])
+          updateWinner(board[combination[0]])
+        }
+      })
+
+      if(board.find(el => el === "") === undefined && !hasWon){ //tie
+        setTimeout(()=>{
+          updateStatus("tie")
+          setIsTied(true)
+        }, 300)
       }
-    })
 
-    if(board.find(el => el === "") === undefined && !hasWon){ //tie
+      // Check if CPU should choose a move
       setTimeout(()=>{
-        updateStatus("tie")
-        setIsTied(true)
-      }, 300)
-    }
 
+        if(gameMode !== 1){ //only do this when playing against cpu
+          if(currentPlayer === playerTwo && !hasWon){
+            const CPUMove = getBestMove();
+            handleBoxClick(CPUMove);
+          }
+        }
+
+      }, 500)
+    }
   }, [board])
 
   /*---------------------------*/
@@ -266,6 +398,7 @@ function App() {
           oHasWon = {oHasWon}
           winnerCombination = {winnerCombination}
           isTied = {isTied}
+          isCPUTurn = {isCPUTurn}
         />
 
         {/*---------------*/}

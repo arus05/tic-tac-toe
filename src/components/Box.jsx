@@ -57,7 +57,7 @@ export default function Box(props){
             className="box"
             id={`box-${props.index}`}
             onClick={()=>{
-                if(!props.xHasWon && !props.oHasWon && !props.isTied){
+                if(!props.xHasWon && !props.oHasWon && !props.isTied && !props.isCPUTurn()){
                     props.handleBoxClick(props.index)
                 }
             }}

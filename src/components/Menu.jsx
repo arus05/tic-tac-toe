@@ -141,13 +141,14 @@ export default function Menu(props){
 
       <button
         className="menu--btn menu--cpu-btn slide-in-left"
+        onClick={()=>props.startGame(2)}
       >
-        NEW GAME (VS CPU) (NOT AVAILABLE YET)
+        NEW GAME (VS CPU)
       </button>
 
       <button
         className="menu--btn menu--player-btn slide-in-right"
-        onClick={props.startGame}
+        onClick={()=>props.startGame(1)}
       >
         NEW GAME (VS PLAYER)
       </button>
