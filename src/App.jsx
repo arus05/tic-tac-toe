@@ -200,6 +200,20 @@ function App() {
     return randomSpot
   }
 
+  function getSmartMove(){
+    let sampleBoard = [...board]
+    for(let i=0; i<sampleBoard.length; i++){
+      if(sampleBoard[i] === ""){
+        sampleBoard[i] = playerOne
+        if(getBoardState(sampleBoard) === playerOne){
+          return i
+        }
+        sampleBoard[i] = ""
+      }
+    }
+    return getRandomMove()
+  }
+
   function minimax(board, isMaximizing){
     const boardState = getBoardState(board);
 
@@ -251,7 +265,7 @@ function App() {
   }
 
   function getBestMove(){
-    let testBoard = board
+    let testBoard = [...board]
     let bestScore = -100
     let bestMove
 
@@ -330,8 +344,18 @@ function App() {
 
         if(gameMode !== 1){ //only do this when playing against cpu
           if(currentPlayer === playerTwo && !hasWon){
-            const CPUMove = getBestMove();
-            handleBoxClick(CPUMove);
+            let CPUMove
+            if(gameMode === 2){
+              CPUMove = getRandomMove()
+            }
+            else if(gameMode === 3){
+              CPUMove = getSmartMove()
+            }
+            else if(gameMode === 4){
+              CPUMove = getBestMove()
+            }
+            console.log(board)
+            handleBoxClick(CPUMove)
           }
         }
 
@@ -407,7 +431,7 @@ function App() {
         <section className="bottom">
           <div id="x-wins" className="bottom-tile">
             <p className="win-label">
-              {`X (${playerOne === "X" ? "P1" : "P2"})`}
+              {`X (${playerOne === "X" ? "P1: Chai" : "P2"})`}
             </p>
             <p className="score">{xWinCount}</p>
           </div>
@@ -419,7 +443,7 @@ function App() {
           </div>
           <div id="o-wins" className="bottom-tile">
             <p className="win-label">
-            {`O (${playerOne === "O" ? "P1" : "P2"})`}
+            {`O (${playerOne === "O" ? "P1: Chai" : "P2"})`}
             </p>
             <p className="score">{oWinCount}</p>
           </div>
